@@ -20,10 +20,10 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, PreviewCallback{
 
-    private static final String TAG = "BirdsIPCam";
+    private static final String TAG = "MainActivity";
 
-    private int width = 800;
-    private int height = 480;
+    private int width = 960;
+    private int height = 960;
     private byte[] h264 = new byte[width * height * 3];
 
     private RtpSenderWrapper mRtpSenderWrapper;
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate: Start");
+
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wiFi_ap = new WiFi_AP(wifiManager);
 
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         Log.v(TAG, "MainActivity+surfaceCreated");
         try {
             m_camera = Camera.open();
+
             m_camera.setPreviewDisplay(m_surfaceHolder);
             Camera.Parameters parameters = m_camera.getParameters();
             parameters.setPreviewSize(width, height);
